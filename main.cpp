@@ -349,9 +349,10 @@ int main(int argc, char** argv)
 
 
 #if HAVE_NEW_VERSION
-        if (vis_precision == OSKAR_DOUBLE)
+        if (vis_precision == OSKAR_DOUBLE){
             /* Define a new name and call the new function. */
 	    // double precision GPU version has not been implemented
+            printf("RUNNING MOVING-WINDOW VERSION\n");
             oskar_grid_wproj_d(
                     (size_t) num_w_planes,
                     support,
@@ -370,9 +371,8 @@ int main(int argc, char** argv)
                     &num_skipped_new,
                     &norm_new,
                     (double*) vis_grid_new);
-        else
-
-
+        } else {
+            printf("RUNNING MOVING-WINDOW VERSION\n");
             /* Define a new name and call the new function. */
             oskar_grid_wproj_gpu(
                     (size_t) num_w_planes,
@@ -392,6 +392,7 @@ int main(int argc, char** argv)
                     &num_skipped_new,
                     &norm_new,
                     (REAL*) r_vis_grid_new);
+        }
 #endif
         /*===================================================================*/
         /*===================================================================*/
@@ -400,7 +401,8 @@ int main(int argc, char** argv)
 
         /* Update the reference visibility grid. */
         oskar_timer_resume(tmr_grid_vis_orig);
-        if (vis_precision == OSKAR_DOUBLE || 0)
+        if (vis_precision == OSKAR_DOUBLE || 0){
+            printf("RUNNING REFERENCE VERSION\n");
             oskar_grid_wproj_d(
                     (size_t) num_w_planes,
                     support,
@@ -419,7 +421,7 @@ int main(int argc, char** argv)
                     &num_skipped_orig,
                     &norm_orig,
                     (double*) r_vis_grid_orig);
-        else {
+        } else {
             #if RUN_DIAGNOSTICS==1
                 num_cells = grid_size*grid_size;
                 num_vis_per_grid  = (long long int*) calloc(num_cells, sizeof(long long int));
@@ -471,6 +473,7 @@ int main(int argc, char** argv)
                 write_fits_cube(OSKAR_SINGLE, avg_wplane_per_grid, "avg_wplane_per_grid", grid_size, grid_size, 1, 0, &writeImageStatus);
                     
             #else
+            printf("RUNNING REFERENCE VERSION\n");
                 oskar_grid_wproj_f(
                         (size_t) num_w_planes,
                         support,

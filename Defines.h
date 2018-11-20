@@ -116,11 +116,11 @@
 #endif
 
 #if !defined TIMESTEPS
-#define TIMESTEPS	10
+#define TIMESTEPS	1
 #endif
 
 #if !defined BLOCKS
-#define BLOCKS		24
+#define BLOCKS		240
 #endif
 
 #define	STREAMS		1

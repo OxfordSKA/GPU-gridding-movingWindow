@@ -586,7 +586,7 @@ void oskar_grid_wproj_gpu(const int num_w_planes, const int* supportSize,
     checkCudaCall(cudaDeviceSynchronize());
 
     cudaMemcpy(norm, dev_norm, sizeof(double), cudaMemcpyDeviceToHost);
-    printf("NORM! %f\n", *norm);
+    //printf("NORM! %f\n", *norm);
     Event startCopy, finishedCopy;
     startCopy.record();
     grids[0].copyDeviceToHost();
@@ -601,8 +601,8 @@ void oskar_grid_wproj_gpu(const int num_w_planes, const int* supportSize,
     }
 
     double stop = getTime();
-    std::cout << "dev->host copy = " << finishedCopy.elapsedTime(startCopy) << std::endl << "total exec time = " << (stop - start) << std::endl;
+    //std::cout << "dev->host copy = " << finishedCopy.elapsedTime(startCopy) << std::endl << "total exec time = " << (stop - start) << std::endl;
 
-    printGrid(*grids[0].hostPtr, "GPU - Cuda");
+    //printGrid(*grids[0].hostPtr, "GPU - Cuda");
 }
 
